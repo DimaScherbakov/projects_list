@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>login-form</title>
+</head>
+<body>
+
+<form name="person">
+  <input name="name" value="petro">
+  <input name="pass" value="123">
+</form>
+	
+</body>
+
+<script>
+  // создать объект для формы
+  var formData = new FormData(document.forms.person);
+//в json
+var object = {};
+formData.forEach(function(value, key){
+    object[key] = value;
+});
+var json = JSON.stringify(object);
+  // console.log(json)
+  // отослать
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "/login");
+  xhr.setRequestHeader('Content-type', 'application/json');
+  xhr.send(json);
+</script>
+
+</html>

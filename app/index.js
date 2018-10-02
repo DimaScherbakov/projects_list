@@ -32,12 +32,11 @@ app.post('/login',function(req,res){
 		res.send(JSON.stringify(list));
 })	
 
-app.get('/', function(req,res){
+app.use('/', function(req,res){
 	// console.log(req.session.id,req.session.usercat);
 	var cat = req.session.usercat || "guest";
-	console.log(cat);
+	// console.log(cat);
 	var list = getProjectsList(cat);
 	res.send(JSON.stringify(list));
 })
-
 module.exports = app;

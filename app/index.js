@@ -12,6 +12,13 @@ app.use(bodyParser.json());
 // var store = sessionHandler.createStore();
 // app.use(cookieParser());
 
+
+app.use(function (req, res, next) {
+	res.header("Access-Control-Allow-Origin", "http://127.0.0.1:4200");
+	res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+	next();});
+
 var store;
 app.use(session({
 	store: store,
@@ -33,6 +40,7 @@ app.post('/login',function(req,res){
 })	
 
 app.use('/', function(req,res){
+	console.log("/ has been loaded");
 	// console.log(req.session.id,req.session.usercat);
 	var cat = req.session.usercat || "guest";
 	// console.log(cat);

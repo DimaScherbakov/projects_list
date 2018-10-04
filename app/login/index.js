@@ -8,7 +8,13 @@ function getCurUser(name,pass) {
 			return curUser;
 		}
 	}
-		return {name: "name or password is wrong,please try again."}
+		return undefined;
 }
 
-module.exports = getCurUser;
+function getUserCatByName(uName){
+return users.filter(function(item){
+return item.name == uName;
+});
+}
+module.exports.getCurUser = getCurUser;
+module.exports.getUserCatByName = getUserCatByName;

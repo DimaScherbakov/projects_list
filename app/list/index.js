@@ -18,7 +18,7 @@ function getProjectsList(userAccess){
 		var projToList = projects[proj];
 		// console.log(projects[proj]);
 		if(projToList.access.some(function(item){
-			console.log(item);
+			//console.log(item);
 			return item === userAccess;
 		})){
 		list.push(new project(name=projToList.name,

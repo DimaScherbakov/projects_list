@@ -11,13 +11,12 @@ app.use(bodyParser.json());
 // var sessionHandler = require("./js/session_handler");
 // var store = sessionHandler.createStore();
 // app.use(cookieParser());
-
-
 app.use(function (req, res, next) {
 	res.header("Access-Control-Allow-Origin", "http://127.0.0.1:4200");
 	res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
 	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-	next();});
+	next();
+});
 
 var store;
 app.use(session({
@@ -27,24 +26,27 @@ app.use(session({
 	secret: "dimadima"
 }));
 // console.log(store)
-app.get('/login', function(req, res){
-    res.sendFile(__dirname + '/login/login-form.html');
-})
+//app.get('/login', function(req, res){
+//    res.sendFile(__dirname + '/login/login-form.html');
+//})
 
 app.post('/login',function(req,res){
-		curUser = getCurUser(req.body.name);
-		store = req.session.id;
-		req.session.usercat = curUser.cat;
-		var list = getProjectsList(curUser.cat);
-		res.send(JSON.stringify(list));
-})	
+		console.log("/login has been loaded")
+		curUser = getCurUser(req.body.name,req.body.pass);
+		req.session.usercat = curUser.cat||"guest";
+		//store = req.session.id;
+		res.send(JSON.stringify(curUser));
+		//var list = getProjectsList(curUser.cat);
+		//res.send(JSON.stringify(list));
+})
 
-app.use('/', function(req,res){
-	console.log("/ has been loaded");
+app.get('/list', function(req,res){
+	console.log("/list has been loaded");
 	// console.log(req.session.id,req.session.usercat);
 	var cat = req.session.usercat || "guest";
-	// console.log(cat);
+	console.log(cat);
 	var list = getProjectsList(cat);
-	res.send(JSON.stringify(list));
+	console.log(JSON.stringify(list));	
+res.send(JSON.stringify(list));
 })
 module.exports = app;

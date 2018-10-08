@@ -19,7 +19,7 @@ function getProjectsList(userAccess){
 		// console.log(projects[proj]);
 		if(projToList.access.some(function(item){
 			//console.log(item);
-			return item === userAccess;
+			return (item === userAccess || item == "guest");
 		})){
 		list.push(new project(name=projToList.name,
 			desc=projToList.desc,

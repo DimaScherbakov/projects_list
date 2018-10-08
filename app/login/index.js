@@ -12,12 +12,11 @@ function getCurUser(name,pass) {
 }
 
 function getUserCatByName(uName){
-console.log("getUSerCatByName works with arg: "+uName);
 var answer = users.filter(function(item){
 return item.name == uName;
 });
 console.log(answer);
-return answer[0].cat;
+return answer[0]? answer[0].cat : "guest";
 }
 module.exports.getCurUser = getCurUser;
 module.exports.getUserCatByName = getUserCatByName;

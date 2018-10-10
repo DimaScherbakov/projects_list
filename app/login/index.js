@@ -18,5 +18,11 @@ return item.name == uName;
 console.log(answer);
 return answer[0]? answer[0].cat : "guest";
 }
+
+function pushUser(name,pass,cat){
+	users.push({name:name,pass:pass,cat:cat})
+	console.log(users);
+}
 module.exports.getCurUser = getCurUser;
 module.exports.getUserCatByName = getUserCatByName;
+module.exports.pushUser = pushUser;

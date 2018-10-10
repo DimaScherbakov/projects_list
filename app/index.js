@@ -7,28 +7,29 @@ var app = express();
 var cors = require('cors');
 var getCurUser = require("./login").getCurUser;
 var getUserCatByName =  require("./login").getUserCatByName;
+var pushUser = require("./login").pushUser;
 var getProjectsList = require("./list");
 app.use(bodyParser.json());
 
-app.use(function (req, res, next) {
-	res.header("Access-Control-Allow-Origin", "http://127.0.0.1:4200");
-	res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
-	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-	next();
-});
+//app.use(function (req, res, next) {
+//	res.header("Access-Control-Allow-Origin", "*");
+//	res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+//	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+//	next();
+//});
 
-//var originsWhitelist = [
-//  'http:\/\/localhost:4200', 'http://www.myproductionurl.com'
-//];
-//var corsOptions = {
-// origin: function(origin, callback){
-//        var isWhitelisted = originsWhitelist.indexOf(origin) !== -1;
-//        callback(null, isWhitelisted);
-//  },
-//  credentials:true
-//}
+var originsWhitelist = [
+  'http:\/\/localhost:4200', 'http://www.myproductionurl.com'
+];
+var corsOptions = {
+ origin: function(origin, callback){
+        var isWhitelisted = originsWhitelist.indexOf(origin) !== -1;
+        callback(null, isWhitelisted);
+  },
+  credentials:true
+}
 //here is the magic
-//app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 
 var sessionStore={userName:undefined,sessionId:undefined};
 
@@ -39,6 +40,12 @@ app.use(session({
 //	saveUninitialized: true,
 //	cookie: { secure: true, maxAge: 60000 }
 }));
+
+app.post('/registration', function(req,res){
+	console.log('/registration has been loaded');
+	pushUser(name=req.body.name,pass=req.body.pass,cat=req.body.cat);
+	
+})
 
 app.post('/login',function(req,res){
 		console.log("/login has been loaded");

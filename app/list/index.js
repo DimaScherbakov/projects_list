@@ -12,7 +12,10 @@ function returns list of projects for current user
 */
 
 function getProjectsList(userAccess){
-	if (userAccess === "admin"){return projects};
+	if (userAccess === "admin"){return adminProjs = projects.map(function(item){
+						item.update = true;
+						return item;
+						})};
 	var list=[];
 	for (proj in projects){
 		var projToList = projects[proj];
@@ -27,6 +30,7 @@ function getProjectsList(userAccess){
 		}
 	}
 	// return JSON.stringify(list);
+	console.log(list);
 	return list;
 }
 

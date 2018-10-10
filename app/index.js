@@ -9,6 +9,7 @@ var getCurUser = require("./login").getCurUser;
 var getUserCatByName =  require("./login").getUserCatByName;
 var pushUser = require("./login").pushUser;
 var getProjectsList = require("./list");
+var sha256 = require ('sha256');
 app.use(bodyParser.json());
 
 //app.use(function (req, res, next) {
@@ -43,13 +44,13 @@ app.use(session({
 
 app.post('/registration', function(req,res){
 	console.log('/registration has been loaded');
-	pushUser(name=req.body.name,pass=req.body.pass,cat=req.body.cat);
+	pushUser(name=req.body.name,pass=sha256(req.body.pass),cat=req.body.cat);
 	
 })
 
 app.post('/login',function(req,res){
 		console.log("/login has been loaded");
-		curUser = getCurUser(req.body.name,req.body.pass);
+		curUser = getCurUser(req.body.name,sha256(req.body.pass));
 		if(curUser){sessionStore.userName=curUser.name;
 			session.uName=curUser.name;
 			}

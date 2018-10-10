@@ -19,13 +19,13 @@ function getProjectsList(userAccess){
 	var list=[];
 	for (proj in projects){
 		var projToList = projects[proj];
-		// console.log(projects[proj]);
+		 console.log(projToList);
 		if(projToList.access.some(function(item){
-			//console.log(item);
 			return (item === userAccess || item == "guest");
 		})){
 		list.push(new project(name=projToList.name,
 			desc=projToList.desc,
+
 			update=projToList.update.some(function(item){return item === userAccess;})));
 		}
 	}

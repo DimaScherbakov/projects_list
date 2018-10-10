@@ -22,9 +22,9 @@ return answer[0]? answer[0].cat : "guest";
 }
 
 function pushUser(name,pass,cat){
-	users.push({name:name,pass:pass,cat:cat})
-	console.log(users);
+	users.push({name:name,pass:pass,cat:cat});
 }
+
 module.exports.getCurUser = getCurUser;
 module.exports.getUserCatByName = getUserCatByName;
 module.exports.pushUser = pushUser;

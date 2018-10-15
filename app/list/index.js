@@ -1,7 +1,11 @@
 var project = require('./Project');
-var projects = [{name:"calculator" , desc:"calculator for your home countings",access:["guest"],update:["guest"]},
-				{name:"calculator2" , desc:"calculator for your home countings2",access:[""],update:[""]},
-			{name:"teapot" , desc:"app shows cafes nearby",access:["auth","guest"],update:["auth"]}];
+
+var projects = [{name:'calculator' , desc:'calculator for your home countings',access:['guest'],update:['admin']},
+				{name:'calculator2' , desc:'calculator for your home countings2',access:[''],update:['']},
+			{name:'teapot' , desc:'app shows cafes nearby',access:['auth'],update:['auth']},
+		{name:'teleportator 3000' , desc:'moves you to any point on the Earth',access:['auth'],update:['']}
+		];
+var usAc;
 /*
 user = {
 	name,
@@ -12,26 +16,26 @@ function returns list of projects for current user
 */
 
 function getProjectsList(userAccess){
-	if (userAccess === "admin"){return adminProjs = projects.map(function(item){
-						item.update = true;
-						return item;
-						})};
 	var list=[];
+	usAc = userAccess;
 	for (proj in projects){
 		var projToList = projects[proj];
-		 console.log(projToList);
-		if(projToList.access.some(function(item){
-			return (item === userAccess || item == "guest");
-		})){
-		list.push(new project(name=projToList.name,
-			desc=projToList.desc,
-
-			update=projToList.update.some(function(item){return item === userAccess;})));
+		if(userAccess == 'admin'){
+			list.push( new project(name = projToList.name,
+									desc=projToList.desc,
+									update= true))}
+		else if( projToList.access.some( isUser ) ){
+			list.push(new project(name=projToList.name,
+							  desc=projToList.desc,
+							  update=projToList.update.some( function(item){return item === userAccess;} ) 
+							  ) 
+			);
 		}
 	}
-	// return JSON.stringify(list);
-	console.log(list);
-	return list;
+}
+
+function isUser(item){
+	return (item === usAc || item === 'guest');
 }
 
 module.exports = getProjectsList;
